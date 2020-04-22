@@ -80,7 +80,7 @@ const convertData = (input) => {
   return ['tweet', 'retweet'].map((key) => {
     return {
       id: key,
-      date: dates.map((d) => {
+      data: dates.map((d) => {
         return {
           x: d,
           y: count[key][d],

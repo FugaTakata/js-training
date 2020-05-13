@@ -4,6 +4,7 @@ import Chart from "../../components/Chart10";
 import instruction from "./instruction.md";
 
 const convertData = (input) => {
+  
   return { nodes: [], links: [] }; // ここを作りましょう！
 };
 

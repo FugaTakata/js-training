@@ -4,79 +4,83 @@ import Chart from '../../components/Chart09'
 import instruction from './instruction.md'
 
 const convertData = (input) => {
-  const ministries = Array.from(new Set(input.map(({ ministry }) => ministry)))
-  const bureaus = Array.from(new Set(input.map(({ bureau }) => bureau)))
-  const departments = Array.from(
-    new Set(input.map(({ department }) => department))
-  )
-
-  const count = {}
-  for (const ministry of ministries) {
-    count[ministry] = {}
-    for (const bureau of bureaus) {
-      count[ministry][bureau] = {}
-      for (const department of departments) {
-        count[ministry][bureau][department] = 0
-      }
-      count[ministry][bureau]['その他'] = 0
-    }
-    count[ministry]['その他'] = 0
-  }
-
-  for (const { ministry, bureau, department } of input) {
-    count[ministry][bureau][department] += 1
-  }
-
-  for (const ministry of ministries) {
-    for (const bureau of bureaus) {
-      const bureauCount = input.filter(
-        (item) => item.ministry === ministry && item.bureau === bureau
-      ).length
-      if (bureauCount < input.length / 100) {
-        count[ministry]['その他'] += bureauCount
-        delete count[ministry][bureau]
-        continue
-      }
-      for (const department of departments) {
-        const departmentCount = input.filter(
-          (item) =>
-            item.ministry === ministry &&
-            item.bureau === bureau &&
-            item.department === department
-        ).length
-        if (departmentCount < input.length / 100) {
-          count[ministry][bureau]['その他'] += departmentCount
-          delete count[ministry][bureau][department]
-        }
-      }
-    }
-  }
-
-  return {
-    children: Object.keys(count).map((ministry) => {
-      return {
-        name: ministry,
-        children: Object.keys(count[ministry]).map((bureau) => {
-          if (bureau === 'その他') {
-            return {
-              name: bureau,
-              count: count[ministry][bureau],
-            }
-          }
-          return {
-            name: bureau,
-            children: Object.keys(count[ministry][bureau]).map((department) => {
-              return {
-                name: department,
-                count: count[ministry][bureau][department],
-              }
-            }),
-          }
-        }),
-      }
-    }),
-  } // ここを作りましょう！
+  return { children: [] } // ここを作りましょう！
 }
+
+// const convertData = (input) => {
+//   const ministries = Array.from(new Set(input.map(({ ministry }) => ministry)))
+//   const bureaus = Array.from(new Set(input.map(({ bureau }) => bureau)))
+//   const departments = Array.from(
+//     new Set(input.map(({ department }) => department))
+//   )
+
+//   const count = {}
+//   for (const ministry of ministries) {
+//     count[ministry] = {}
+//     for (const bureau of bureaus) {
+//       count[ministry][bureau] = {}
+//       for (const department of departments) {
+//         count[ministry][bureau][department] = 0
+//       }
+//       count[ministry][bureau]['その他'] = 0
+//     }
+//     count[ministry]['その他'] = 0
+//   }
+
+//   for (const { ministry, bureau, department } of input) {
+//     count[ministry][bureau][department] += 1
+//   }
+
+//   for (const ministry of ministries) {
+//     for (const bureau of bureaus) {
+//       const bureauCount = input.filter(
+//         (item) => item.ministry === ministry && item.bureau === bureau
+//       ).length
+//       if (bureauCount < input.length / 100) {
+//         count[ministry]['その他'] += bureauCount
+//         delete count[ministry][bureau]
+//         continue
+//       }
+//       for (const department of departments) {
+//         const departmentCount = input.filter(
+//           (item) =>
+//             item.ministry === ministry &&
+//             item.bureau === bureau &&
+//             item.department === department
+//         ).length
+//         if (departmentCount < input.length / 100) {
+//           count[ministry][bureau]['その他'] += departmentCount
+//           delete count[ministry][bureau][department]
+//         }
+//       }
+//     }
+//   }
+
+//   return {
+//     children: Object.keys(count).map((ministry) => {
+//       return {
+//         name: ministry,
+//         children: Object.keys(count[ministry]).map((bureau) => {
+//           if (bureau === 'その他') {
+//             return {
+//               name: bureau,
+//               count: count[ministry][bureau],
+//             }
+//           }
+//           return {
+//             name: bureau,
+//             children: Object.keys(count[ministry][bureau]).map((department) => {
+//               return {
+//                 name: department,
+//                 count: count[ministry][bureau][department],
+//               }
+//             }),
+//           }
+//         }),
+//       }
+//     }),
+//   } // ここを作りましょう！
+// }
 
 //answer09/index.js
 // const convertData = (input) => {
